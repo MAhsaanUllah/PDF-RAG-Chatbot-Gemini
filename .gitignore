@@ -1,0 +1,24 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment
+venv/
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# FAISS index
+faiss_index/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Temp files
+*.tmp
+*.log
+
+.env
