@@ -10,7 +10,7 @@ if not api_key:
 
 os.environ["GOOGLE_API_KEY"] = api_key  # Needed for langchain_google_genai
 
-# 🩹 Fix: Ensure there's an asyncio event loop (for Gemini async client)
+# 🩹 Ensure there's an asyncio event loop (for Gemini async client)
 try:
     asyncio.get_running_loop()
 except RuntimeError:
@@ -18,7 +18,7 @@ except RuntimeError:
     asyncio.set_event_loop(loop)
 
 # ---- LangChain & Gemini Modules ----
-from langchain_community.document_loaders import PyMuPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.chains import RetrievalQA
@@ -30,7 +30,9 @@ st.title("📚 Gemini RAG Chatbot")
 st.markdown("Upload one or more PDFs and ask questions using Google's Gemini LLM.")
 
 # ---- Sidebar Upload ----
-uploaded_files = st.sidebar.file_uploader("📄 Upload PDF files", type="pdf", accept_multiple_files=True)
+uploaded_files = st.sidebar.file_uploader(
+    "📄 Upload PDF files", type="pdf", accept_multiple_files=True
+)
 
 # ---- Session State Initialization ----
 if "chat_history" not in st.session_state:
@@ -48,7 +50,7 @@ if uploaded_files:
         with open(file_path, "wb") as f:
             f.write(file.read())
 
-        loader = PyMuPDFLoader(file_path)
+        loader = PyPDFLoader(file_path)
         documents = loader.load()
         all_docs.extend(documents)
 
@@ -85,4 +87,5 @@ if st.session_state.qa_chain:
     for role, msg in st.session_state.chat_history:
         with st.chat_message("user" if role == "user" else "assistant"):
             st.markdown(msg)
+
 
