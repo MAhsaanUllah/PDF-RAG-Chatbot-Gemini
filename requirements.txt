@@ -1,21 +1,22 @@
-streamlit
-python-dotenv
+streamlit==1.29.0
+python-dotenv==1.1.1
 
 # PDF + File Processing
-pymupdf
-PyPDF2
-tqdm
+PyMuPDF==1.22.5
+PyPDF2==3.1.1
+tqdm==4.66.1
 
-# LangChain Stack (pinned for Streamlit Cloud)
+# LangChain Stack (stable for Cloud)
 langchain==0.2.11
 langchain-community==0.2.11
 langchain-google-genai==0.1.0
 
-# Google Gemini + Generative AI
+# Google Gemini / Generative AI
 google-generativeai==0.8.5
 google-ai-generativelanguage==0.6.15
 
 # Vector DB
-faiss-cpu
+faiss-cpu==1.7.4
+
 
 
