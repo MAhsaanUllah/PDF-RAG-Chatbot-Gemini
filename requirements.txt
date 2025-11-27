@@ -1,14 +1,20 @@
 streamlit
-langchain
-langchain-google-genai
-google-generativeai==0.8.5
-google-ai-generativelanguage==0.6.15
+python-dotenv
+
+# PDF + File Processing
+pymupdf
 PyPDF2
 tqdm
+
+# LangChain Stack (pinned for Streamlit Cloud compatibility)
+langchain==0.2.11
+langchain-community==0.2.11
+langchain-google-genai==0.1.0
+
+# Google Gemini + Generative AI
+google-generativeai==0.8.5
+google-ai-generativelanguage==0.6.15
+
+# Vector DB
 faiss-cpu
 
-##for streamlit cloud
-python-dotenv
-streamlit
-google-generativeai
-PyPDF2
