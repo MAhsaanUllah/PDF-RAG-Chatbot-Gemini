@@ -20,7 +20,7 @@ except RuntimeError:
 # ---- LangChain & Gemini Modules ----
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import FAISS
+from langchain.vectorstores import InMemoryVectorStore
 from langchain.chains import RetrievalQA
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 
@@ -60,7 +60,7 @@ if uploaded_files:
 
     # Embeddings
     embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    vectordb = FAISS.from_documents(docs, embedding)
+    vectordb = InMemoryVectorStore.from_documents(docs, embedding)
 
     # LLM
     llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash")
@@ -87,5 +87,4 @@ if st.session_state.qa_chain:
     for role, msg in st.session_state.chat_history:
         with st.chat_message("user" if role == "user" else "assistant"):
             st.markdown(msg)
-
 
