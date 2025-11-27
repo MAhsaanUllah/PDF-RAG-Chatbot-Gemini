@@ -7,3 +7,8 @@ PyPDF2
 tqdm
 faiss-cpu
 
+##for streamlit cloud
+python-dotenv
+streamlit
+google-generativeai
+PyPDF2
