@@ -1,7 +1,14 @@
 import streamlit as st
 import os
 import asyncio
-from dotenv import load_dotenv
+
+# ---- Secrets Config (Streamlit Cloud) ----
+api_key = st.secrets.get("GOOGLE_API_KEY", None)
+if not api_key:
+    st.error("🚨 GOOGLE_API_KEY missing in Streamlit Secrets. Add it in the Secrets panel and redeploy.")
+    st.stop()
+
+os.environ["GOOGLE_API_KEY"] = api_key  # Needed for langchain_google_genai
 
 # 🩹 Fix: Ensure there's an asyncio event loop (for Gemini async client)
 try:
@@ -9,14 +16,6 @@ try:
 except RuntimeError:
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-
-# ✅ Load environment variables
-load_dotenv()
-api_key = os.getenv("GOOGLE_API_KEY")
-if not api_key:
-    st.error("🚨 GOOGLE_API_KEY not found in .env file. Please add it to your .env and restart the app.")
-    st.stop()
-os.environ["GOOGLE_API_KEY"] = api_key  # For langchain_google_genai to pick up
 
 # ---- LangChain & Gemini Modules ----
 from langchain_community.document_loaders import PyMuPDFLoader
@@ -57,14 +56,14 @@ if uploaded_files:
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     docs = text_splitter.split_documents(all_docs)
 
-    # ✅ Correct Embedding Model (Gemini-compatible)
+    # Embeddings
     embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectordb = FAISS.from_documents(docs, embedding)
 
-    # ✅ Correct LLM model
+    # LLM
     llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash")
 
-    # Build QA chain
+    # QA chain
     st.session_state.qa_chain = RetrievalQA.from_chain_type(
         llm=llm,
         retriever=vectordb.as_retriever(),
@@ -80,11 +79,10 @@ if st.session_state.qa_chain:
         with st.spinner("Gemini is thinking..."):
             result = st.session_state.qa_chain.invoke({"query": user_input})
 
-        # Save chat history
         st.session_state.chat_history.append(("user", user_input))
         st.session_state.chat_history.append(("bot", result["result"]))
 
-    # Display chat history in order
     for role, msg in st.session_state.chat_history:
         with st.chat_message("user" if role == "user" else "assistant"):
             st.markdown(msg)
+
