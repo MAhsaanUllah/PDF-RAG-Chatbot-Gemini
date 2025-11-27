@@ -87,4 +87,3 @@ if st.session_state.qa_chain:
     for role, msg in st.session_state.chat_history:
         with st.chat_message("user" if role == "user" else "assistant"):
             st.markdown(msg)
-
