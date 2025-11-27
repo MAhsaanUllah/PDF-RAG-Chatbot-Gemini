@@ -1,12 +1,10 @@
 streamlit==1.29.0
 python-dotenv==1.1.1
 
-# PDF + File Processing
-PyMuPDF==1.22.5
+# PDF processing (pure Python)
 PyPDF2==3.1.1
-tqdm==4.66.1
 
-# LangChain Stack (stable for Cloud)
+# LangChain Stack
 langchain==0.2.11
 langchain-community==0.2.11
 langchain-google-genai==0.1.0
@@ -15,8 +13,8 @@ langchain-google-genai==0.1.0
 google-generativeai==0.8.5
 google-ai-generativelanguage==0.6.15
 
-# Vector DB
-faiss-cpu==1.7.4
+# Optional: Vector DB replacement (pure Python)
+faiss-cpu==1.7.4.post2  # post2 is precompiled wheel for Linux
 
 
 
