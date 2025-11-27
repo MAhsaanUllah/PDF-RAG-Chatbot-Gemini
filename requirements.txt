@@ -6,7 +6,7 @@ pymupdf
 PyPDF2
 tqdm
 
-# LangChain Stack (pinned for Streamlit Cloud compatibility)
+# LangChain Stack (pinned for Streamlit Cloud)
 langchain==0.2.11
 langchain-community==0.2.11
 langchain-google-genai==0.1.0
@@ -17,4 +17,5 @@ google-ai-generativelanguage==0.6.15
 
 # Vector DB
 faiss-cpu
+
 
