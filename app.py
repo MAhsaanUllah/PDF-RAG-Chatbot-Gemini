@@ -9,10 +9,10 @@ if not api_key:
 
 os.environ["GOOGLE_API_KEY"] = api_key
 
-# ---- Imports (compatible versions only) ----
+# ---- Imports (Clean + Compatible) ----
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import FAISS
+from langchain.vectorstores import InMemoryVectorStore
 from langchain.chains import RetrievalQA
 from langchain_google_genai import (
     GoogleGenerativeAIEmbeddings,
@@ -50,8 +50,9 @@ if uploaded_files:
     splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     docs = splitter.split_documents(all_docs)
 
+    # ---- Replace FAISS → InMemoryVectorStore (No conflicts!) ----
     embed = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    vectordb = FAISS.from_documents(docs, embed)
+    vectordb = InMemoryVectorStore.from_documents(docs, embed)
 
     llm = ChatGoogleGenerativeAI(model="gemini-pro")
 
@@ -76,4 +77,5 @@ if st.session_state.qa:
     for role, msg in st.session_state.history:
         with st.chat_message(role):
             st.write(msg)
+
 
