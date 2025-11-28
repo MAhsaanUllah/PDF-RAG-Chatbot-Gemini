@@ -1,19 +1,9 @@
-# Core
-streamlit==1.26.1
-
-# LangChain & related loaders
-langchain==0.1.151
-langchain-community==0.0.179
-
-# PDF handling
-PyPDF2==3.1.1
-
-# Text processing / embeddings
-sentence-transformers==2.2.2
-tiktoken==0.4.0
-
-# Transformers (for embeddings / LLMs)
-transformers==4.30.2
-
-# Optional: for async / caching (if your app uses it)
-aiohttp==3.9.4
+streamlit
+langchain==0.1.20
+langchain-community==0.0.36
+langchain-google-genai==0.0.6
+google-generativeai==0.4.1
+PyPDF2
+faiss-cpu
+python-dotenv
+tqdm
